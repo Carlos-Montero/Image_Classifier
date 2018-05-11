@@ -30,24 +30,19 @@ public class OutputClassDistribution {
 
         //APLICAR EL FILTRO
 
-        
+        Phogfilter phogFilter = new Phogfilter();
+        phogFilter.setAttributeIndices(indicesOfColumnsToUse);
+        phogFilter.setInvertSelection(true);
+        phogFilter.setInputFormat(train);
 
+        // Then apply the phogFilter to your training set
 
-
-
-
-
-
-
-
-
-
-
+        Instances trainingSubset = Filter.useFilter(train, phogFilter);
 
         // train classifier
         J48 cls = new J48();
         //naive cls = new naive();
-        cls.buildClassifier(train);
+        cls.buildClassifier(trainingSubset);
 
         // output predictions
         System.out.println("# - actual - predicted - error - distribution");
